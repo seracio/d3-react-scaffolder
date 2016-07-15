@@ -1,0 +1,3 @@
+export const ADD_LETTERS = 'ADD_LETTERS';
+
+export const REMOVE_LETTERS = 'REMOVE_LETTERS';
