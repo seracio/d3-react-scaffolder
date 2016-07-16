@@ -26,7 +26,7 @@ class App extends Component {
     componentDidMount() {
         self.setInterval(() => this.props.dispatch({
             type: actionTypes.CHANGE_LETTERS
-        }), 1000);
+        }), 1500);
     }
 
     render() {

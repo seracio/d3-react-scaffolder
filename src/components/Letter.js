@@ -6,7 +6,7 @@ import {transition} from 'd3-transition';
 
 class Letter extends Component {
 
-    static t = transition().duration(750);
+    static t = transition().duration(1000);
 
     // propTypes is a way to check if
     // your props are well defined,
@@ -26,8 +26,8 @@ class Letter extends Component {
     state = {
         fill: 'green',
         x: 0,
-        y: -60,
-        fillOpacity: 0,
+        y: -100,
+        fillOpacity: .1,
     };
 
     // Animation on enter:
@@ -69,16 +69,19 @@ class Letter extends Component {
 
     // Animation on exit
     componentWillLeave(callback) {
+        this.setState({
+            fill: 'red'
+        });
+
         select(findDOMNode(this))
             .transition(Letter.t)
-            .attr('y', 60)
+            .attr('y', 100)
             .style('fill-opacity', 0)
             .style('fill', 'red')
             .on('end', () => {
                 this.setState({
-                    y: 60,
-                    fillOpacity: 0,
-                    fill: 'red'
+                    y: 100,
+                    fillOpacity: .1,
                 });
                 callback();
             });
