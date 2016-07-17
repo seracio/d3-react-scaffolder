@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import TransitionGroup from 'react-addons-transition-group';
+import {interval} from 'd3-timer';
 import * as actionTypes from '../actions/actionTypes';
 import Letter from './Letter';
 import {svgStyle} from '../style/style';
@@ -24,9 +25,9 @@ class App extends Component {
     // componentDidMount is part of the lyfecycle of React's components
     // It's here that we will call for an update of our store through an action call
     componentDidMount() {
-        self.setInterval(() => this.props.dispatch({
+        interval(() => this.props.dispatch({
             type: actionTypes.CHANGE_LETTERS
-        }), 1500);
+        }), 1500, 0);
     }
 
     render() {

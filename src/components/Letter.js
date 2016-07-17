@@ -6,8 +6,6 @@ import {transition} from 'd3-transition';
 
 class Letter extends Component {
 
-    static t = transition().duration(1000);
-
     // propTypes is a way to check if
     // your props are well defined,
     // but also a good way to remember
@@ -35,10 +33,10 @@ class Letter extends Component {
     // it means your element is already on the dom
     componentWillEnter(callback) {
         this.setState({
-            x: this.props.i*32
+            x: this.props.i * 32
         });
         select(findDOMNode(this))
-            .transition(Letter.t)
+            .transition(transition().duration(750))
             .attr('y', 0)
             .style('fill-opacity', 1)
             .on('end', () => {
@@ -52,15 +50,18 @@ class Letter extends Component {
 
     // Animation on update
     // This method is not called for the initial render
+    // It also seems that this method is called several times
+    // during an animation, so you should always test your props
+    // before doing something with this one
     componentWillReceiveProps(nextProps) {
-        if(nextProps.i !== this.props.i){
+        if(!_.isEqual(this.props, nextProps)){
             select(findDOMNode(this))
-                .transition(Letter.t)
-                .attr('x', nextProps.i*32)
-                .style('fill','blue')
+                .transition(transition().duration(750))
+                .attr('x', nextProps.i * 32)
+                .style('fill', 'blue')
                 .on('end', () => {
                     this.setState({
-                        x: nextProps.i*32,
+                        x: nextProps.i * 32,
                         fill: 'blue'
                     });
                 });
@@ -74,7 +75,7 @@ class Letter extends Component {
         });
 
         select(findDOMNode(this))
-            .transition(Letter.t)
+            .transition(transition().duration(750))
             .attr('y', 100)
             .style('fill-opacity', 0)
             .style('fill', 'red')
